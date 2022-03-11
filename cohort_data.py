@@ -307,9 +307,6 @@ def get_housemates_for(filename, name):
             housemates.add(tup[0])
             housemates.discard(name)
 
-    # for
-    #     if house in line.split('|')[0] and cohort in line.split('|')[1]:
-    #         cohort = (f"{line.split('|')[-1].strip()}")
     school_data.close()
     return housemates
 
