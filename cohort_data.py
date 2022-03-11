@@ -184,9 +184,18 @@ def all_data(filename):
 
     all_data = []
 
-    # TODO: replace this with your code
+    school_data = open(filename, 'r')
+
+    for line in school_data:
+        string = f"{line.split('|')[0]} {line.split('|')[1]}, {line.split('|')[2]}, {line.split('|')[3]}, {line.split('|')[4].strip()}"
+        all_data.append(tuple(map(str, string.split(', '))))
+
+    school_data.close()
 
     return all_data
+
+
+all_data('cohort_data.txt')
 
 
 def get_cohort_for(filename, name):
@@ -249,14 +258,14 @@ def get_housemates_for(filename, name):
 # END OF MAIN EXERCISE.  Yay!  You did it! You Rock!
 #
 
-# if __name__ == '__main__':
-#     import doctest
+if __name__ == '__main__':
+    import doctest
 
-#     result = doctest.testfile('doctests.py',
-#                               report=False,
-#                               optionflags=(
-#                                   doctest.REPORT_ONLY_FIRST_FAILURE
-#                               ))
-#     doctest.master.summarize(1)
-#     if result.failed == 0:
-#         print('ALL TESTS PASSED')
+    result = doctest.testfile('doctests.py',
+                              report=False,
+                              optionflags=(
+                                  doctest.REPORT_ONLY_FIRST_FAILURE
+                              ))
+    doctest.master.summarize(1)
+    if result.failed == 0:
+        print('ALL TESTS PASSED')
