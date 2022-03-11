@@ -24,7 +24,6 @@ def all_houses(filename):
     for line in school_data:
         houses.add(line.split('|')[2])
     houses.discard('')
-    print(houses)
     school_data.close()
 
     return houses
@@ -63,9 +62,25 @@ def students_by_cohort(filename, cohort='All'):
 
     students = []
 
-    # TODO: replace this with your code
+    school_data = open(filename, 'r')
+
+    for line in school_data:
+        # print(str(line.split('|')[4]))
+        if cohort in line:
+            students.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif cohort == 'All':
+            students.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        else:
+            # students = []
+            pass
+
+    # print(students)
+    school_data.close()
 
     return sorted(students)
+
+
+students_by_cohort('cohort_data.txt')
 
 
 def all_names_by_house(filename):
@@ -198,14 +213,14 @@ def get_housemates_for(filename, name):
 # END OF MAIN EXERCISE.  Yay!  You did it! You Rock!
 #
 
-# if __name__ == '__main__':
-#     import doctest
+if __name__ == '__main__':
+    import doctest
 
-#     result = doctest.testfile('doctests.py',
-#                               report=False,
-#                               optionflags=(
-#                                   doctest.REPORT_ONLY_FIRST_FAILURE
-#                               ))
-#     doctest.master.summarize(1)
-#     if result.failed == 0:
-#         print('ALL TESTS PASSED')
+    result = doctest.testfile('doctests.py',
+                              report=False,
+                              optionflags=(
+                                  doctest.REPORT_ONLY_FIRST_FAILURE
+                              ))
+    doctest.master.summarize(1)
+    if result.failed == 0:
+        print('ALL TESTS PASSED')
