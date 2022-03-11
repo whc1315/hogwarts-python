@@ -219,7 +219,29 @@ def get_cohort_for(filename, name):
       - str: the person's cohort or None
     """
 
-    # TODO: replace this with your code
+    school_data = open(filename, 'r')
+
+    for line in school_data:
+        name1 = (name.split(' ')[0])
+        try:
+            name2 = (name.split(' ')[1])
+        except:
+            pass
+
+        if name1 in line.split('|')[0] and name2 in line.split('|')[1]:
+            cohort = (f"{line.split('|')[-1].strip()}")
+            break
+        else:
+            cohort = None
+
+        # else:
+        #     print(None)
+
+    school_data.close()
+    return cohort
+
+
+get_cohort_for('cohort_data.txt', 'Harry Potter')
 
 
 def find_duped_last_names(filename):
@@ -235,8 +257,23 @@ def find_duped_last_names(filename):
     Return:
       - set[str]: a set of strings
     """
+    dup_last_name = set()
+    last_name_list = []
 
-    # TODO: replace this with your code
+    school_data = open(filename, 'r')
+
+    for line in school_data:
+        last_name = line.split('|')[1]
+        if last_name not in last_name_list:
+            last_name_list.append(last_name)
+        else:
+            dup_last_name.add(last_name)
+
+    school_data.close()
+    return dup_last_name
+
+
+find_duped_last_names('cohort_data.txt')
 
 
 def get_housemates_for(filename, name):
@@ -251,7 +288,35 @@ def get_housemates_for(filename, name):
     {'Angelina Johnson', ..., 'Seamus Finnigan'}
     """
 
-    # TODO: replace this with your code
+    all_housemates = []
+    housemates = set()
+
+    school_data = open(filename, 'r')
+
+    for line in school_data:
+        string = f"{line.split('|')[0]} {line.split('|')[1]}, {line.split('|')[2]}, {line.split('|')[4].strip()}"
+        all_housemates.append(tuple(map(str, string.split(', '))))
+
+    for tup in all_housemates:
+        if name == tup[0]:
+            houses = tup[1]
+            cohorts = tup[2]
+
+    for tup in all_housemates:
+        if houses in tup[1] and cohorts in tup[2]:
+            housemates.add(tup[0])
+            housemates.discard(name)
+
+    # for
+    #     if house in line.split('|')[0] and cohort in line.split('|')[1]:
+    #         cohort = (f"{line.split('|')[-1].strip()}")
+    school_data.close()
+    return housemates
+
+    # print(all_housemates)
+
+
+get_housemates_for('cohort_data.txt', 'Harry Potter')
 
 
 ##############################################################################
