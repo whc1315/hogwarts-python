@@ -68,6 +68,10 @@ def students_by_cohort(filename, cohort='All'):
         # print(str(line.split('|')[4]))
         if cohort in line:
             students.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif 'G' in line.split('|')[-1]:
+            pass
+        elif 'I' in line.split('|')[-1]:
+            pass
         elif cohort == 'All':
             students.append(f"{line.split('|')[0]} {line.split('|')[1]}")
         else:
@@ -113,6 +117,7 @@ def all_names_by_house(filename):
     Return:
       - list[list]: a list of lists
     """
+    rosters = []
 
     dumbledores_army = []
     gryffindor = []
@@ -122,9 +127,40 @@ def all_names_by_house(filename):
     ghosts = []
     instructors = []
 
-    # TODO: replace this with your code
+    school_data = open(filename, 'r')
 
-    return []
+    for line in school_data:
+        # print(str(line.split('|')[4]))
+        if "Dumbledore's Army" in line:
+            dumbledores_army.append(
+                f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif "Gryffindor" in line:
+            gryffindor.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif "Hufflepuff" in line:
+            hufflepuff.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif "Ravenclaw" in line:
+            ravenclaw.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif "Slytherin" in line:
+            slytherin.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif "G" in line.split('|')[-1]:
+            ghosts.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        elif "I" in line.split('|')[-1]:
+            instructors.append(f"{line.split('|')[0]} {line.split('|')[1]}")
+        else:
+            pass
+    rosters.append(sorted(dumbledores_army))
+    rosters.append(sorted(gryffindor))
+    rosters.append(sorted(hufflepuff))
+    rosters.append(sorted(ravenclaw))
+    rosters.append(sorted(slytherin))
+    rosters.append(sorted(ghosts))
+    rosters.append(sorted(instructors))
+
+    school_data.close()
+    return rosters
+
+
+all_names_by_house('cohort_data.txt')
 
 
 def all_data(filename):
@@ -213,14 +249,14 @@ def get_housemates_for(filename, name):
 # END OF MAIN EXERCISE.  Yay!  You did it! You Rock!
 #
 
-if __name__ == '__main__':
-    import doctest
+# if __name__ == '__main__':
+#     import doctest
 
-    result = doctest.testfile('doctests.py',
-                              report=False,
-                              optionflags=(
-                                  doctest.REPORT_ONLY_FIRST_FAILURE
-                              ))
-    doctest.master.summarize(1)
-    if result.failed == 0:
-        print('ALL TESTS PASSED')
+#     result = doctest.testfile('doctests.py',
+#                               report=False,
+#                               optionflags=(
+#                                   doctest.REPORT_ONLY_FIRST_FAILURE
+#                               ))
+#     doctest.master.summarize(1)
+#     if result.failed == 0:
+#         print('ALL TESTS PASSED')
